@@ -16,6 +16,8 @@ function all_dirs() {
 	cwd="$(pwd)";
 	for d in ./*/;
 	do
+		[ -e "$d" ] || continue
+
 		echo -e "\\n$(tput bold)$d$(tput sgr0)\\n";
 		cd "$d" || { echo "Error: $d failed"; return; }
 		eval "$*";
