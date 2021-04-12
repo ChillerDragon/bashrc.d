@@ -24,7 +24,7 @@ jobs:
 
       - name: Integration test
         run: |
-          source *.sh
+          for f in ./*.sh; do source "$f"; done
           [ ! -z "$EDITOR" ] || exit 1
           mkdir {foo,bar,baz}
           touch foo/{hello,world}
