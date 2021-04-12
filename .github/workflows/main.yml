@@ -1,0 +1,31 @@
+
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Dependencys
+        run: sudo apt-get install -y shellcheck
+
+      - name: Shellcheck
+        run: find . -type f -name '*.sh' -print0 | xargs -0 shellcheck
+
+      - name: Integration test
+        run: |
+          source *.sh
+          [ ! -z "$EDITOR" ] || exit 1
+          mkdir {foo,bar,baz}
+          touch foo/{hello,world}
+          all_dirs ls
