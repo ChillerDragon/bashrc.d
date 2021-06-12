@@ -25,3 +25,12 @@ function all_dirs() {
 	done;
 }
 
+function fvim() {
+	if [ ! -x "$(command -v fzf)" ]
+	then
+		echo "Error: fzf is not installed"
+		return
+	fi
+	eval "vim $* $(fzf)"
+}
+
