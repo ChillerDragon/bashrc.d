@@ -25,7 +25,9 @@ function all_dirs() {
 	done;
 }
 
-function fvim() {
+function fim() {
+	# see also:
+	# the alias fd for cd in dotfiles
 	if [ ! -x "$(command -v fzf)" ]
 	then
 		echo "Error: fzf is not installed"
