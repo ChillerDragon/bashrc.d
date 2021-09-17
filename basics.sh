@@ -9,7 +9,7 @@ shopt -s histappend
 shopt -s cmdhist
 
 # After each command, append to the history file and reread it
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
+# export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
 
 # Print the timestamp of each command
 HISTTIMEFORMAT='%F_%H-%M-%S '
