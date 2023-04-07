@@ -63,9 +63,12 @@ function lopen() {
 		echo "Error: file not found '$filename'"
 		return
 	fi
+	local cmd
+	cmd="vim +$line -- $filename"
 	vim +"$line" -- "$filename"
 	echo "" # fzf and rg could stderr and do weird offsets
-	echo "[lopen] vim +$line -- $filename"
+	echo "[lopen] $cmd"
+	history -s "$cmd"
 }
 
 function fim() {
