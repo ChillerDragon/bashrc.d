@@ -25,6 +25,49 @@ function all_dirs() {
 	done;
 }
 
+# lopen - line open
+# fuzzy find all lines and then open the matched line in vim
+function lopen() {
+	local search_path="${1:-.}"
+	if [ ! -d "$search_path" ]
+	then
+		echo "Error: not a directory '$search_path'"
+		return
+	fi
+	[[ -x "$(command -v fzf)" ]] || { echo "Error: you need fzf"; return; }
+	[[ -x "$(command -v rg)" ]] || { echo "Error: you need rg"; return; }
+	[[ -x "$(command -v vim)" ]] || { echo "Error: you need vim"; return; }
+
+	local m
+	if ! m="$(rg -n . "$search_path" | fzf)"
+	then
+		return
+	fi
+	local filename
+	if ! filename="$(echo "$m" | cut -d":" -f1)"
+	then
+		return
+	fi
+	local line
+	if ! line="$(echo "$m" | cut -d":" -f2)"
+	then
+		return
+	fi
+	if [[ ! "$line" =~ ^[0-9]+$ ]]
+	then
+		echo "Error: invalid line num '$line'"
+		return
+	fi
+	if [ ! -f "$filename" ]
+	then
+		echo "Error: file not found '$filename'"
+		return
+	fi
+	vim +"$line" -- "$filename"
+	echo "" # fzf and rg could stderr and do weird offsets
+	echo "[lopen] vim +$line -- $filename"
+}
+
 function fim() {
 	# see also:
 	# the alias fd for cd in dotfiles
