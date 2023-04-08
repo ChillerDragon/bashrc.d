@@ -73,7 +73,6 @@ function lopen() {
 
 function fim() {
 	# see also:
-	# the alias fd for cd in dotfiles
 	if [ ! -x "$(command -v fzf)" ]
 	then
 		echo "Error: fzf is not installed"
