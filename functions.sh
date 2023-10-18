@@ -81,3 +81,14 @@ function fim() {
 	eval "vim $* $(fzf)"
 }
 
+function check_cert() {
+        if [ "$#" != "1" ]
+        then
+                echo "usage: check_cert url"
+                echo "description:"
+                echo "  prints ssl cert expire date of given url"
+                return
+        fi
+        local url="$1"
+        curl -vvvi "$url" 2>&1 | grep "expire date" -A1
+}
