@@ -110,18 +110,61 @@ function dd7() {
 		cd "$rundir" || return
 	fi
 
-	if [ "$#" -gt "1" ]
+	_dd7_usage() {
+		echo "usage: dd7 [FLAGS..] [tw cmd] [FLAGS..]"
+		echo "flags:"
+		echo "  --help | -h       show this help"
+		echo "  --dev             run ./DDNet instead of DDNet7 binary"
+	}
+
+	if [ "$1" == "-h" ] || [ "$1" == "--help" ]
 	then
-		echo "Error: giving more than 1 arg is not supported yet"
-		echo "usage: dd7 'connect localhost'"
+		_dd7_usage
 		return
 	fi
-	local cmd_string="$1"
+
+	local tw_bin=DDNet7
+	local cmd_string=''
+	local arg
+	while true
+	do
+		[[ "$#" -gt "0" ]] || break
+
+		arg="$1"
+		shift
+
+		if [ "${arg::1}" == "-" ]
+		then
+			if [ "$arg" == "--dev" ]
+			then
+				tw_bin=./DDNet
+			elif [ "$arg" == "--help" ] || [ "$arg" == "-h" ]
+			then
+				_dd7_usage
+				return
+			else
+				_dd7_usage
+				echo "Unknown flag: $arg"
+				return 1
+			fi
+		elif [ "$cmd_string" == "" ]
+		then
+			cmd_string="$arg"
+		else
+			_dd7_usage
+			echo "Unexpected argument: $arg"
+			return 1
+		fi
+	done
+
 	local cmd
 	local cmd_string7=''
 	while read -r cmd
 	do
-		if [[ "$cmd" == "connect "* ]] && ! [[ "$cmd" == "connect tw-0.7+udp://"* ]]
+		if [ "$cmd" == "connect localhost" ]
+		then
+			cmd="connect tw-0.7+udp://127.0.0.1"
+		elif [[ "$cmd" == "connect "* ]] && ! [[ "$cmd" == "connect tw-0.7+udp://"* ]]
 		then
 			cmd="connect tw-0.7+udp://${cmd:8}"
 		fi
@@ -129,6 +172,6 @@ function dd7() {
 	done < <(echo "$cmd_string" | tr ';' '\n')
 	echo "[dd7] got: $cmd_string"
 	echo "[dd7] translated to: $cmd_string7"
-	DDNet7 "$cmd_string7"
+	"$tw_bin" "$cmd_string7"
 }
 
