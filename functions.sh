@@ -92,3 +92,43 @@ function check_cert() {
         local url="$1"
         curl -vvvi "$url" 2>&1 | grep "expire date" -A1
 }
+
+function dd7() {
+	if [ ! -x "$(command -v DDNet7)" ]
+	then
+		echo "Error: DDNet7 not in PATH"
+		echo "       git clone git@github.com:ChillerDragon/ddnet --recursive"
+		echo "       cd ddnet && git checkout pr_07_client"
+		echo "       mkdir build && cd build && cmake .. && make"
+		echo "       sudo cp DDNet /usr/local/bin/DDNet7"
+		return
+	fi
+
+	local rundir="$HOME/Desktop/git/ddnet/build"
+	if [ -d "$rundir" ] && [ -d "$rundir/data" ]
+	then
+		cd "$rundir" || return
+	fi
+
+	if [ "$#" -gt "1" ]
+	then
+		echo "Error: giving more than 1 arg is not supported yet"
+		echo "usage: dd7 'connect localhost'"
+		return
+	fi
+	local cmd_string="$1"
+	local cmd
+	local cmd_string7=''
+	while read -r cmd
+	do
+		if [[ "$cmd" == "connect "* ]] && ! [[ "$cmd" == "connect tw-0.7+udp://"* ]]
+		then
+			cmd="connect tw-0.7+udp://${cmd:8}"
+		fi
+		cmd_string7+="$cmd;"
+	done < <(echo "$cmd_string" | tr ';' '\n')
+	echo "[dd7] got: $cmd_string"
+	echo "[dd7] translated to: $cmd_string7"
+	DDNet7 "$cmd_string7"
+}
+
