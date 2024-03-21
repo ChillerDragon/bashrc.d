@@ -12,12 +12,12 @@ shopt -s cmdhist
 # export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
 
 # Print the timestamp of each command
-HISTTIMEFORMAT='%F_%H-%M-%S '
+# HISTTIMEFORMAT='%F_%H-%M-%S '
 
 # Set high limit for history file size
 HISTFILESIZE=5000000
 HISTSIZE=5000000
 # ignoreboth = ignoredups + ignorespace (see man bash(1))
 # ereasedups sounds bad because it rewrites old history
-HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth
 
