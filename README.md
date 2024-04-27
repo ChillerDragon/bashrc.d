@@ -6,3 +6,5 @@ Is it weird to have a dotfiles repo and a repo just for bashrc? Probably yes ..
 https://github.com/ChillerDragon/dotfiles
 
 https://github.com/ChillerDragon/crools
+
+https://github.com/ChillerDragon/bashrc-secrets
