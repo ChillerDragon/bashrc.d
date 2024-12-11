@@ -14,6 +14,7 @@ export PATH="$PATH:$HOME/Desktop/git/lib-teeworlds"
 export PATH="$PATH:$HOME/Desktop/git/libtw2/target/release"
 export PATH="$PATH:$HOME/Desktop/git/server/lib/var/bin"
 export PATH="$PATH:$HOME/Desktop/git/twmap/target/release"
+export PATH="$PATH:$HOME/Desktop/git/teeworlds-asmr"
 
 export PATH="$PATH:$HOME/.luarocks/bin"
 export PATH="$PATH:$HOME/.local/bin"
