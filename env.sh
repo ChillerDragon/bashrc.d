@@ -5,6 +5,8 @@ export EDITOR="$VISUAL"
 
 export FDDR_ACC_PATH="$HOME/Desktop/git/fddrace/data/accounts"
 
+export CMAKE_EXPORT_COMPILE_COMMANDS=ON
+
 export PATH="$PATH:$HOME/Desktop/git/bam"
 export PATH="$PATH:$HOME/Desktop/git/chillerbot-ux/build"
 export PATH="$PATH:$HOME/Desktop/git/chillerbot-zx/build"
