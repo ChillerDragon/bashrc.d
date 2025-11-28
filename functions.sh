@@ -2,13 +2,13 @@
 
 x() {
 	ls
-	if [ -d .git ]
-	then
-		git status
-	fi
 	if [ -d .hg ]
 	then
 		hg status
+	fi
+	if [ -d .git ]
+	then
+		git status
 	fi
 }
 
