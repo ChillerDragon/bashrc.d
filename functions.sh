@@ -9,8 +9,7 @@ x() {
 			echo "WARNING: this is also a mercurial repo"
 		fi
 		git status
-	fi
-	if [ -d .hg ]
+	elif [ -d .hg ]
 	then
 		hg status
 	fi
