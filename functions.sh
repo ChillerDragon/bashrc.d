@@ -2,13 +2,17 @@
 
 x() {
 	ls
+	if [ -d .git ]
+	then
+		if [ -d .hg ]
+		then
+			echo "WARNING: this is also a mercurial repo"
+		fi
+		git status
+	fi
 	if [ -d .hg ]
 	then
-		echo "WARNING: this is also a mercurial repo"
 		hg status
-	elif [ -d .git ]
-	then
-		git status
 	fi
 }
 
