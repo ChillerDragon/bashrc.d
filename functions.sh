@@ -4,9 +4,9 @@ x() {
 	ls
 	if [ -d .hg ]
 	then
+		echo "WARNING: this is also a mercurial repo"
 		hg status
-	fi
-	if [ -d .git ]
+	elif [ -d .git ]
 	then
 		git status
 	fi
