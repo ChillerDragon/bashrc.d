@@ -1,5 +1,17 @@
 #!/bin/bash
 
+x() {
+	ls
+	if [ -d .git ]
+	then
+		git status
+	fi
+	if [ -d .hg ]
+	then
+		hg status
+	fi
+}
+
 function whereami() {
 	echo -e "STY: \\033[0;31m$STY\\033[0m"
 	ps wwf -s $$
