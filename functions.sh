@@ -12,6 +12,8 @@ x() {
 	elif [ -d .hg ]
 	then
 		hg status
+	else
+		git status
 	fi
 }
 
