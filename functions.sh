@@ -1,7 +1,7 @@
 #!/bin/bash
 
 x() {
-	ls
+	ls --color=auto
 	if [ -d .git ]
 	then
 		if [ -d .hg ]
